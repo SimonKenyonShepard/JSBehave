@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+	
+	<title>BDD tests</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/triggerNative.jQuery.js"></script>
+	<script type="text/javascript" src="js/color.jQuery.js"></script>
+	<script type="text/javascript" src="js/testConsole.js"></script>
+	<script type="text/javascript" src="js/testHarness.js"></script>
+	<script type="text/javascript" >
+       
+		$(function(){
+		    
+		    testHarness.executeScenarios({
+				
+		        theUserCanClickTheButtonAndSeeTheText: {
+					
+		            "Given the user has opened the test page": function(testSandbox){
+		                this.loadPage("HelloWorld.htm");
+						
+		            },
+					
+					"And the go button is present" : function() {
+						
+						
+						this.waitForElement("#testAction");
+						
+					},
+					
+		            "When the user clicks the go button": function(testSandbox){
+						
+						$("#testAction", testSandbox.document).eq(0).triggerNative("click");
+		            },
+					
+		            "Then the user sees hello world": function(testSandbox){
+		            
+		            	console.log($("p:contains('Hello world')", testSandbox.document).length > 0);
+		            	return ($("p:contains('Hello world')", testSandbox.document).length > 0);
+		            
+		            }
+		        }
+		    });
+		    
+		});
+   	
+	</script>
+	<style type="text/css">
+			
+			html, body {
+				
+				background-color: #262626;
+				font-family: verdana;
+				padding: 0;
+				margin: 0;
+				height: 100%;
+				width: 100%;
+				
+			}
+			
+			#testConsole {
+				
+				background:  #000 -webkit-gradient(linear, 0% 0%, 0% 15%, from(rgba(255, 255, 255, 0.2)), to(rgba(255, 255, 255, 0.4)));
+				bottom: 0;
+				color: #fff;
+				cursor: pointer;
+				left: 0;
+				height: 80px;
+				opacity: 0.9;
+				overflow: hidden;
+				padding: 10px;
+				position: fixed;
+				width: 100%;
+				
+			}
+			
+			#testEnvironment {
+				
+				border: 0;
+				
+			}
+			
+            #steps {
+                bottom: 10px;
+                left: 10px;
+                position: absolute;
+            }
+			
+			
+			
+		</style>
+	
+	</head>
+	
+	<body>
+		<iframe src ="blank.htm" width="100%" height="100%" id="testEnvironment">
+			<p>Your browser does not support iframes so cssUnit will not work.</p>
+		</iframe>
+	</body>
+
+</html>
